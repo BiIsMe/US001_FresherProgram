@@ -12,4 +12,7 @@ public interface ClientDao extends JpaRepository<Client, String> {
 	
 	@Query(value = "select * from Clients where identitynumber like ?1 and clientnumber not like ?2", nativeQuery = true)
 	Client checkExistsBeside(String idNum, String clNum);
+	
+	Boolean existsByidentitynumber(String identitynumber);
+	
 }

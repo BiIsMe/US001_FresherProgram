@@ -107,8 +107,9 @@ public class ClientController {
 	//create
 	@RequestMapping(value = "abc.com/create", params = "btnCreate")
 	public String create(Model model, @Validated @ModelAttribute("client") Client client, BindingResult errors) {
-		Client temp = cdao.findClientByIdNum(client.getIdentitynumber());
-		if(temp != null) {
+//		Client temp = cdao.findClientByIdNum(client.getIdentitynumber());
+		boolean flag = cdao.existsByidentitynumber(client.getIdentitynumber());
+		if(flag) {
 			model.addAttribute("message","Identity Number already exists");
 			model.addAttribute("clientMess","Please change the ID Number - it already exists");
 		}
@@ -118,9 +119,9 @@ public class ClientController {
 				model.addAttribute("message","please check all the form");
 			}
 			else {				
-				if(temp == null) {
+				if(!flag) {
 					cdao.save(client);
-					model.addAttribute("message","success");
+					model.addAttribute("message","Create successfully");
 					Client c = cdao.findById(client.getClientnumber()).get();
 					model.addAttribute("client",c);
 					return "client/inquire";
@@ -160,7 +161,7 @@ public class ClientController {
 			else {				
 				if(temp == null) {
 					cdao.save(client);
-					model.addAttribute("message","success");
+					model.addAttribute("message","Modify successfully");
 					Client c = cdao.findById(client.getClientnumber()).get();
 					model.addAttribute("client",c);
 					return "client/inquire";

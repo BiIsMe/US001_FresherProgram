@@ -19,7 +19,7 @@ public class InterConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {		
 		registry.addInterceptor(auth)
 			.addPathPatterns("/abc.com/**")
-			.excludePathPatterns("/abc.com/login");	
+			.excludePathPatterns("/abc.com/login","/abc.com/rest/**");	
 	}
 	
 }
